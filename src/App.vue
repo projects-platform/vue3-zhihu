@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <GlobalHeader :user="user"/>
     <ColumnList :list="list"/>
   </div>
 </template>
@@ -8,6 +9,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { defineComponent } from 'vue'
 import ColumnList, { ColumnProps } from './components/ColumnList.vue'
+import GlobalHeader, { UserProps } from './components/GlobalHeader.vue'
 
 const testData:ColumnProps[] = [{
   id: 1,
@@ -28,14 +30,21 @@ const testData:ColumnProps[] = [{
   // avatar: 'https://avatars.githubusercontent.com/u/12862565?s=400&u=644d159c4fe5cf84c211befcb611f27a00391c54&v=4'
 }]
 
+const currentUser: UserProps = {
+  isLogin: true,
+  name: 'H_VK'
+}
+
 export default defineComponent({
   name: 'App',
   components: {
+    GlobalHeader,
     ColumnList
   },
   setup () {
     return {
-      list: testData
+      list: testData,
+      user: currentUser
     }
   }
 })
