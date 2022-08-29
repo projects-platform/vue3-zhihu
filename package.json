@@ -10,7 +10,9 @@
   "dependencies": {
     "bootstrap": "^5.2.0",
     "mitt": "^3.0.0",
-    "vue": "^3.2.13"
+    "vue": "^3.2.13",
+    "vue-router": "^4.0.13",
+    "vuex": "^4.0.2"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.4.0",

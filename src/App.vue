@@ -1,53 +1,37 @@
 <template>
   <div class="container">
     <GlobalHeader :user="user"/>
-    <FormTest/>
-    <ColumnList :list="list"/>
+    <router-view/>
+    <footer class="text-center py-4 text-secondary bg-light mt-6">
+      <ul class="list-inline-item mb-0">
+        <li class="list-inline-item">© 2022 之乎者也</li>
+        <li class="list-inline-item">课程</li>
+        <li class="list-inline-item">文档</li>
+        <li class="list-inline-item">联系</li>
+        <li class="list-inline-item">更多</li>
+      </ul>
+    </footer>
   </div>
 </template>
 
 <script lang="ts">
 import 'bootstrap/dist/css/bootstrap.min.css'
-import { defineComponent } from 'vue'
-import ColumnList, { ColumnProps } from './components/ColumnList.vue'
-import GlobalHeader, { UserProps } from './components/GlobalHeader.vue'
-import FormTest from './components/FormTest.vue'
+import { computed, defineComponent } from 'vue'
+import { useStore } from 'vuex'
 
-const testData:ColumnProps[] = [{
-  id: 1,
-  title: 'test专栏1',
-  description: '这是一个描述',
-  avatar: 'https://avatars.githubusercontent.com/u/12862565?s=400&u=644d159c4fe5cf84c211befcb611f27a00391c54&v=4'
-},
-{
-  id: 2,
-  title: 'test专栏2',
-  description: '这是一个描述',
-  avatar: 'https://avatars.githubusercontent.com/u/12862565?s=400&u=644d159c4fe5cf84c211befcb611f27a00391c54&v=4'
-},
-{
-  id: 3,
-  title: 'test专栏3',
-  description: '这是一个描述'
-  // avatar: 'https://avatars.githubusercontent.com/u/12862565?s=400&u=644d159c4fe5cf84c211befcb611f27a00391c54&v=4'
-}]
-
-const currentUser: UserProps = {
-  isLogin: true,
-  name: 'H_VK'
-}
+import { GlobalDataProps } from './store'
+import GlobalHeader from './components/GlobalHeader.vue'
 
 export default defineComponent({
   name: 'App',
   components: {
-    GlobalHeader,
-    ColumnList,
-    FormTest
+    GlobalHeader
   },
   setup () {
+    const store = useStore<GlobalDataProps>()
+    const user = computed(() => store.state.user)
     return {
-      list: testData,
-      user: currentUser
+      user
     }
   }
 })
