@@ -1,12 +1,21 @@
 <template>
   <div class="validate-input-container pb-3">
-    <input v-bind="$attrs"
-          class="form-control"
-          :class="{ 'is-invalid': inputRef.error }"
-          :value="inputRef.val"
-          @blur="validateInput"
-          @input="updateValue"
-    >
+    <input v-if="tag !== 'textarea'"
+      v-bind="$attrs"
+      class="form-control"
+      :class="{ 'is-invalid': inputRef.error }"
+      :value="inputRef.val"
+      @blur="validateInput"
+      @input="updateValue"
+    />
+    <textarea v-else
+      v-bind="$attrs"
+      class="form-control"
+      :class="{ 'is-invalid': inputRef.error }"
+      :value="inputRef.val"
+      @blur="validateInput"
+      @input="updateValue"
+    />
     <span class="invalid-feedback" v-if="inputRef.error" >{{ inputRef.message }}</span>
   </div>
 </template>
@@ -24,11 +33,16 @@ interface RuleProp {
 }
 
 export type RulesProp = RuleProp[]
+export type TagType = 'input' | 'textarea'
 
 export default defineComponent({
   props: {
     rules: Array as PropType<RulesProp>,
-    modelValue: String
+    modelValue: String,
+    tag: {
+      type: String as PropType<TagType>,
+      default: 'input'
+    }
   },
   inheritAttrs: false, // 禁止组件根元素继承 attribute
   setup (props, context) {
